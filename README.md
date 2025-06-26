@@ -49,6 +49,11 @@ mvn clean test
 - The test report can be found in the path:
     #### test-output/index.html
 
+## CI Integration (GitHub Actions)
+- This project is integrated with GitHub Actions to support automated test execution via:
+
+  - Manual triggers (you can run the pipeline from the Actions tab)
+  - Scheduled runs (Daily at midnight)
 
 ## Author
 
