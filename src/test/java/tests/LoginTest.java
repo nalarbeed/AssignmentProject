@@ -14,10 +14,9 @@ public class LoginTest extends BaseTest {
     @Test(priority = 1)
     public void verifyLoginFunctionality() {
         LoginPage loginPage = new LoginPage(driver);
+
         String username = SharedTestData.getUsername();
         String password = SharedTestData.getPassword();
-
-        System.out.println(username + ' ' + password);
         loginPage.login(username, password);
 
         // Assert the welcome header is displayed

@@ -12,5 +12,7 @@ public class AddToCartTest extends BaseTest {
         AddToCartPage addToCartPage = new AddToCartPage(driver);
         addToCartPage.addToCart();
         Assert.assertEquals(addToCartPage.getCartProductCount(), 2, "Expected 2 products in the cart, but found: " + addToCartPage.getCartProductCount());
+        System.out.println(addToCartPage.getCartProductCount() + " Added Successfully to Cart");
     }
+
 }

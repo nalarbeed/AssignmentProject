@@ -46,6 +46,6 @@ public class RegisterTest extends BaseTest {
         );
 
         System.out.println("User " + username + " / " + password + " Registered Successfully");
-        System.out.println(SharedTestData.getUsername() +" / "+ SharedTestData.getPassword());
+
     }
 }
