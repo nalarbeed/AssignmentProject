@@ -1,24 +1,27 @@
-name: Run Selenium TestNG Tests
+name: Selenium TestNG Pipeline
 
 on:
-  workflow_dispatch:    # Manual trigger
+  workflow_dispatch: # Enables manual trigger
   schedule:
-    - cron: '0 12 * * *' # Every day at 12:00 UTC
+    - cron: '0 0 * * *' # Runs daily at midnight UTC
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      # Step 1: Check out the repository code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Java
+      # Step 2: Set up JDK (Java Development Kit)
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'  # Use 17 since Java 23 caused issues
+          java-version: '17' # Adjust to your project's Java version
+          distribution: 'temurin' # Eclipse Temurin is a popular JDK distribution
 
+      # Step 3: Cache Maven dependencies to speed up builds
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
@@ -26,13 +29,14 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build and Run Tests with Maven
+      # Step 4: Build and run tests with Maven
+      - name: Build and test
         run: mvn clean test
 
-      - name: Upload TestNG Reports (XML + HTML)
+      # Step 5: Upload test reports (optional, for debugging)
+      - name: Upload TestNG reports
+        if: always() # Uploads even if tests fail
         uses: actions/upload-artifact@v4
         with:
-          name: TestNG-Reports
-          path: |
-            target/surefire-reports/
-            test-output/             # TestNG default HTML reports
+          name: testng-reports
+          path: test-output/
